@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import escapeHtml from 'escape-html';
+import { useNavigate } from 'react-router-dom';
 
 type FormValues = {
     otp1: string;
@@ -11,11 +12,14 @@ type FormValues = {
 const VerifyPage: React.FC = () => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>();
     const otpRefs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
+    const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<FormValues> = data => {
         const otp = `${escapeHtml(data.otp1)}${escapeHtml(data.otp2)}${escapeHtml(data.otp3)}${escapeHtml(data.otp4)}`;
         console.log('Submitted OTP:', otp);
         // TODO: Verify OTP
+        navigate('/', { state: { otp } });
+
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -38,7 +42,7 @@ const VerifyPage: React.FC = () => {
                     <h1 className='text-xl'>تایید</h1>
                     <p className='text-xs mt-2'>کد تایید چهار رقمی ارسال شده به شماره تلفن خود را وارد کنید </p>
                 </div>
-                <div className='flex gap-4 mx-8 items-center justify-center'>
+                <div className='flex flex-row-reverse gap-4 mx-8 items-center justify-center'>
                     {Array.from({ length: 4 }).map((_, index) => (
                         <input
                             key={index}
@@ -53,7 +57,8 @@ const VerifyPage: React.FC = () => {
                             })}
                             onChange={(e) => handleInputChange(e, index)}
                             ref={otpRefs[index]}
-                            className='border border-gray-300 rounded-md w-full p-2'
+                            autoFocus
+                            className='border border-gray-300 text-center rounded-md w-full p-2'
                         />
                     ))}
                 </div>
