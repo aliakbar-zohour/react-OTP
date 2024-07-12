@@ -1,10 +1,66 @@
+import React, { useState, useRef } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import escapeHtml from 'escape-html';
 
-const VerifyPage = () => {
+type FormValues = {
+    otp1: string;
+    otp2: string;
+    otp3: string;
+    otp4: string;
+};
+const VerifyPage: React.FC = () => {
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormValues>();
+    const otpRefs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
+
+    const onSubmit: SubmitHandler<FormValues> = data => {
+        const otp = `${escapeHtml(data.otp1)}${escapeHtml(data.otp2)}${escapeHtml(data.otp3)}${escapeHtml(data.otp4)}`;
+        console.log('Submitted OTP:', otp);
+        // TODO: Verify OTP
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const { value } = e.target;
+        if (/^\d$/.test(value)) {
+            setValue(`otp${index + 1}` as keyof FormValues, value);
+            if (index < 3) {
+                otpRefs[index + 1].current?.focus();
+            }
+        }
+    };
     return (
-        <div>
-            Verify
-        </div>
-    )
+        <section className='flex flex-col justify-end items-center w-full h-screen bg-slate-800'>
+
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className='bg-white w-full p-5 flex flex-col justify-center items-center gap-3 rounded-t-2xl'
+            >
+                <div >
+                    <h1 className='text-xl'>تایید</h1>
+                    <p className='text-xs mt-2'>کد تایید چهار رقمی ارسال شده به شماره تلفن خود را وارد کنید </p>
+                </div>
+                <div className='flex gap-4 mx-8 items-center justify-center'>
+                    {Array.from({ length: 4 }).map((_, index) => (
+                        <input
+                            key={index}
+                            type="text"
+                            maxLength={1}
+                            {...register(`otp${index + 1}` as keyof FormValues, {
+                                required: "این فیلد الزامی است",
+                                pattern: {
+                                    value: /^[0-9]$/,
+                                    message: "فقط اعداد مجاز هستند"
+                                }
+                            })}
+                            onChange={(e) => handleInputChange(e, index)}
+                            ref={otpRefs[index]}
+                            className='border border-gray-300 rounded-md w-full p-2'
+                        />
+                    ))}
+                </div>
+                <button type="submit" className='bg-black text-white rounded-xl px-8 py-2 w-full'>ارسال</button>
+            </form>
+        </section>
+    );
 }
 
 export default VerifyPage
