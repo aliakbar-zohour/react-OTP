@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+# 🔐 OTP Auto-Reader for PWA (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and reliable **One-Time Password (OTP) auto-reader** component built with **React**, **TypeScript**, and optimized for **Progressive Web Apps (PWA)**. It reads OTP codes automatically in all scenarios where supported – seamless, fast, and secure.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- ✅ Automatic reading of OTP from SMS using `navigator.credentials.get({ otp })`
+- 🧠 Works even when the app is installed as a PWA
+- 💡 Intelligent fallback when auto-read is not supported
+- 📱 Designed for mobile-first experience
+- 🔒 Secure and user-friendly
+- 🎯 Built with TypeScript for better DX and type safety
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- ⚛️ **React.js** – Modern UI rendering
+- 🔷 **TypeScript** – Strong typing
+- 💅 **Tailwind CSS** (optional) – For styling (if used)
+- 📦 **Vite** – Fast build tool
+- 📲 **PWA Support** – Fully installable and offline-ready
+
+---
+
+## 📦 Installation
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/otp-auto-reader.git
+
+# 2. Navigate to the folder
+cd otp-auto-reader
+
+# 3. Install dependencies
+npm install
+
+# 4. Run the app
+npm run dev
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
