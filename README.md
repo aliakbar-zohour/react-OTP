@@ -29,7 +29,7 @@ A modern and reliable **One-Time Password (OTP) auto-reader** component built wi
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/otp-auto-reader.git
+git clone https://github.com/aliakbar-zohour/react-OTP.git
 
 # 2. Navigate to the folder
 cd otp-auto-reader
